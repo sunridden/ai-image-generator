@@ -1,4 +1,15 @@
+import os
 import replicate
+
+# Directory where the app.py file is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Create subdirectory generatedImgages in the same folder as app.py
+save_directory = os.path.join(script_dir, "GeneratedImages")
+
+#Ensure directoy exists, if not create it
+if not os.path.exists(save_directory):
+    os.makedirs(save_directory)
 
 def startProgram():
     programRunning = True
@@ -27,16 +38,17 @@ def startProgram():
 def generateImage():
 
     input = {
-        "prompt": "black forest gateau cake spelling out the words \"FLUX SCHNELL\", tasty, food photography, dynamic shot"
+        "prompt": "black forest gateau cake spelling out the words \"sun\", tasty, food photography, dynamic shot"
     }
 
     output = replicate.run(
         "black-forest-labs/flux-schnell",
         input=input
     )
-    
+
     for index, item in enumerate(output):
-        with open(f"output_{index}.webp", "wb") as file:
+        save_path = os.path.join(save_directory, f"output_{index}.webp")
+        with open(save_path, "wb") as file:
             file.write(item.read())
     #=> output_0.webp written to disk
     
