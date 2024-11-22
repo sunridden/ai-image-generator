@@ -1,5 +1,6 @@
 import os
 import replicate
+import math
 
 # Directory where the app.py file is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -34,7 +35,65 @@ def startProgram():
         if (nextUserInput.lower() == 'y' or nextUserInput.lower() == 'yes' or nextUserInput == 1):
             #Proceed to enter parameters
             programRunning = False
-        
+
+def calculateImageNum():
+    # Calculates the number of images needed for a script given its word count, video length, and duration of each image
+    
+    print("How many words are in your script?")
+
+    calculatedWords = False
+    while(calculatedWords == False):
+        wordCount = input()
+        if wordCount.isdigit() == False:
+            print("An integer must be given as the word count")
+        else:
+            wordCount = int(wordCount)
+            calculatedWords = True
+
+    print("How long is your script? (minutes)")
+
+    calculatedMinutes = False
+    while(calculatedMinutes == False):
+        minuteCount = input()
+        if minuteCount.isdigit() == False:
+            print("An integer must be given as the script length count (minutes)")
+        else:
+            minuteCount = int(minuteCount)
+            calculatedMinutes = True
+
+    print("How long is your script? (seconds)")
+
+    calculatedSeconds = False
+    while(calculatedSeconds == False):
+        secondCount = input()
+        if secondCount.isdigit() == False:
+            print("An integer must be given as the script length count (seconds)")
+        else:
+            secondCount = int(secondCount)
+            calculatedSeconds = True
+
+    print("How many seconds do you want each image to last? (Default is 10 seconds)")
+
+    imageLength = False
+    while(imageLength == False):
+        imageLengthCount = input()
+        if len(imageLengthCount) == 0:
+            imageLengthCount = 10
+            break
+        if imageLengthCount.isdigit() == False:
+            print("An integer must be given as the image length count (seconds)")
+        else:
+            imageLengthCount = int(imageLengthCount)
+            imageLength = True
+
+    videoLength = (minuteCount * 60) + secondCount
+
+    totalImages = math.ceil(videoLength / imageLengthCount)
+
+    wordsPerImage = math.ceil(wordCount / totalImages)
+
+    print("There are " + str(totalImages) + " images with " + str(wordsPerImage) + " words per image")
+
 def generateImage():
 
     input = {
@@ -53,5 +112,6 @@ def generateImage():
     #=> output_0.webp written to disk
     
 #startProgram()
-generateImage()
+#generateImage()
+calculateImageNum()
     
