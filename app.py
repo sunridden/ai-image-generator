@@ -1,6 +1,7 @@
 import os
 import replicate
 import math
+import numpy as np
 
 # Directory where the app.py file is located
 script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +37,29 @@ def startProgram():
             #Proceed to enter parameters
             programRunning = False
 
+def splitScript(script):
+
+    #Find number of images to produce
+    print("How many images do you want to produce?")
+
+    calculatedImages = False
+    while(calculatedImages == False):
+        imageNum = input()
+        if imageNum.isdigit() == False:
+            print("An integer must be given for the total number of images to produce")
+        else:
+            imageNum = int(imageNum)
+            calculatedImages = True
+
+    #Parses words in script into parts to convert to images
+    scriptWords = script.split()
+
+    # Splits evenly into parts based on the amount of images
+    scriptParts = np.array_split(scriptWords, imageNum)
+
+    # Combines each sub-array combining the words into a single string using ' '.join(...)
+    newSplitScript = [' '.join(part) for part in scriptParts]
+    
 def calculateImageNum():
     # Calculates the number of images needed for a script given its word count, video length, and duration of each image
     
@@ -113,5 +137,4 @@ def generateImage():
     
 #startProgram()
 #generateImage()
-calculateImageNum()
-    
+#calculateImageNum()
