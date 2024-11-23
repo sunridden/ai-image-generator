@@ -33,9 +33,9 @@ def startProgram():
         if (nextUserInput.lower() == 'stop' or nextUserInput == '1'):
             programRunning = False
             break
-        if (nextUserInput.lower() == 'y' or nextUserInput.lower() == 'yes' or nextUserInput == 1):
-            #Proceed to enter parameters
-            programRunning = False
+        if (nextUserInput.lower() == 'y' or nextUserInput.lower() == 'yes' or nextUserInput == '0'):
+            
+            parsedScript = splitScript(userInput)
 
 def splitScript(script):
 
