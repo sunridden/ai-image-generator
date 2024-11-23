@@ -36,6 +36,7 @@ def startProgram():
         if (nextUserInput.lower() == 'y' or nextUserInput.lower() == 'yes' or nextUserInput == '0'):
             
             parsedScript = splitScript(userInput)
+            promptImageGeneration(parsedScript)
 
 def splitScript(script):
 
@@ -59,6 +60,8 @@ def splitScript(script):
 
     # Combines each sub-array combining the words into a single string using ' '.join(...)
     newSplitScript = [' '.join(part) for part in scriptParts]
+
+    return newSplitScript
     
 def calculateImageNum():
     # Calculates the number of images needed for a script given its word count, video length, and duration of each image
@@ -118,6 +121,10 @@ def calculateImageNum():
 
     print("There are " + str(totalImages) + " images with " + str(wordsPerImage) + " words per image")
 
+def promptImageGeneration(parsedScript):
+    for part in parsedScript:
+        print("Count ")
+
 def generateImage():
 
     input = {
@@ -135,6 +142,6 @@ def generateImage():
             file.write(item.read())
     #=> output_0.webp written to disk
     
-#startProgram()
+startProgram()
 #generateImage()
 #calculateImageNum()
